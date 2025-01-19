@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://xml.netbeans.org/schema/ProyectoSCHEMA" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WS_Solicita" targetNamespace="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita">
+            <xsd:import namespace="http://xml.netbeans.org/schema/ProyectoSCHEMA" schemaLocation="ProyectoSCHEMA.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="WS_SolicitaOperationRequest">
+        <part element="ns:eltoGestionaPedido" name="datosEntrada"/>
+    </message>
+    <message name="WS_SolicitaOperationResponse">
+        <part element="ns:eltoRespuestaGestiona" name="datosRespuesta"/>
+    </message>
+    <message name="WS_SolicitaOperationFault">
+        <part element="ns:eltoExcepcionGenerica" name="datosFault"/>
+    </message>
+    <portType name="WS_SolicitaPortType">
+        <operation name="WS_SolicitaOperation">
+            <input message="tns:WS_SolicitaOperationRequest" name="input1"/>
+            <output message="tns:WS_SolicitaOperationResponse" name="output1"/>
+            <fault message="tns:WS_SolicitaOperationFault" name="fault1"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="WS_Solicita">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="WS_SolicitaPortTypeRole" portType="tns:WS_SolicitaPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

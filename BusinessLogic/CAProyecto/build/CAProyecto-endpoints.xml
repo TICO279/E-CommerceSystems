@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<endpoints xmlns="http://xml.netbeans.org/schema/endPoints" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xml.netbeans.org/schema/endPoints endPoints.xsd">
+    <project>
+        <name>CAProyecto</name>
+        <version>1.0</version>
+        <description>description</description>
+    </project>
+    <team>
+        <name>unknown team</name>
+        <contact>no contact provided</contact>
+    </team>
+    <endpoint>
+        <type>provider</type>
+        <endpoint-name>WS_SolicitaPortTypeRole_myRole</endpoint-name>
+        <service-name>
+            <namespace>http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto</namespace>
+            <localname>PLSolicita</localname>
+        </service-name>
+        <interface-name>
+            <namespace>http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita</namespace>
+            <localname>WS_SolicitaPortType</localname>
+        </interface-name>
+        <description>description of the service provided or consumed through this endPoint</description>
+    </endpoint>
+    <endpoint>
+        <type>consumer</type>
+        <endpoint-name>WSPedidoRole_partnerRole</endpoint-name>
+        <service-name>
+            <namespace>http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto</namespace>
+            <localname>PLPedidos</localname>
+        </service-name>
+        <interface-name>
+            <namespace>http://wspedido/</namespace>
+            <localname>WSPedido</localname>
+        </interface-name>
+        <description>description of the service provided or consumed through this endPoint</description>
+    </endpoint>
+    <endpoint>
+        <type>consumer</type>
+        <endpoint-name>WS_CreditoRole_partnerRole</endpoint-name>
+        <service-name>
+            <namespace>http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto</namespace>
+            <localname>PLCredito</localname>
+        </service-name>
+        <interface-name>
+            <namespace>http://wscredito/</namespace>
+            <localname>WS_Credito</localname>
+        </interface-name>
+        <description>description of the service provided or consumed through this endPoint</description>
+    </endpoint>
+    <endpoint>
+        <type>consumer</type>
+        <endpoint-name>WS_EnviosRole_partnerRole</endpoint-name>
+        <service-name>
+            <namespace>http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto</namespace>
+            <localname>PLEnvios</localname>
+        </service-name>
+        <interface-name>
+            <namespace>http://wsenvios/</namespace>
+            <localname>WS_Envios</localname>
+        </interface-name>
+        <description>description of the service provided or consumed through this endPoint</description>
+    </endpoint>
+</endpoints>

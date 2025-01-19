@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/WS_Pedidos_Libros/WSPedido?WSDL" uri="../localhost_8080/WS_Pedidos_Libros/WSPedido.wsdl"/>
+    <system systemId="http://localhost:8080/WS_Pedidos_Libros/WSPedido?xsd=1" uri="../localhost_8080/WS_Pedidos_Libros/WSPedido.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS_Envios_Libros/WS_Envios?WSDL" uri="../localhost_8080/WS_Envios_Libros/WS_Envios.wsdl"/>
+    <system systemId="http://localhost:8080/WS_Envios_Libros/WS_Envios?xsd=1" uri="../localhost_8080/WS_Envios_Libros/WS_Envios.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS_Credito_Libros2/WSCredito?WSDL" uri="../localhost_8080/WS_Credito_Libros2/WSCredito.wsdl"/>
+    <system systemId="http://localhost:8080/WS_Credito_Libros2/WSCredito?xsd=1" uri="../localhost_8080/WS_Credito_Libros2/WSCredito.xsd_1.xsd"/>
+</catalog>

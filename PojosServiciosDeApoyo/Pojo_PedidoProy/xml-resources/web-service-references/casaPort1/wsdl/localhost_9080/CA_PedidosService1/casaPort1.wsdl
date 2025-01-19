@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/GestionaProyectoWSDL" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="CA_Pedidos" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="CA_Pedidos">
+  <import location="http://DESKTOP-3D5I46J:9080/CA_Pedidos-sun-http-binding/BPELProyecto/GestionaProyectoWSDL.wsdl" namespace="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/GestionaProyectoWSDL">
+    </import>
+  <portType name="dummyCasaPortType">
+  </portType>
+  <binding name="casaBinding1" type="ns:GestionaProyectoWSDLPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GestionaProyectoWSDLOperation">
+      <soap:operation/>
+      <input name="input1">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output1">
+        <soap:body use="literal"/>
+      </output>
+      <fault name="fault1">
+        <soap:fault name="fault1" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="CA_PedidosService1">
+    <port binding="tns:casaBinding1" name="casaPort1">
+      <soap:address location="http://DESKTOP-3D5I46J:9080/CA_PedidosService1/casaPort1"/>
+    </port>
+  </service>
+</definitions>

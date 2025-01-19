@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="BPELProyecto"
+    targetNamespace="http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/BPELProyecto/BPELProyecto"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="http://xml.netbeans.org/schema/ProyectoSCHEMA">
+    <import namespace="http://enterprise.netbeans.org/bpel/WSPedidoWrapper" location="WSPedidoWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://wspedido/" location="http://localhost:8080/WS_Pedidos_Libros/WSPedido?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WSCreditoWrapper" location="WSCreditoWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://wscredito/" location="http://localhost:8080/WS_Credito_Libros2/WSCredito?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/WS_EnviosWrapper" location="WS_EnviosWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://wsenvios/" location="http://localhost:8080/WS_Envios_Libros/WS_Envios?WSDL" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" location="WS_Solicita.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PLSolicita" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" partnerLinkType="tns:WS_Solicita" myRole="WS_SolicitaPortTypeRole"/>
+        <partnerLink name="PLPedidos" xmlns:tns="http://enterprise.netbeans.org/bpel/WSPedidoWrapper" partnerLinkType="tns:WSPedidoLinkType" partnerRole="WSPedidoRole"/>
+        <partnerLink name="PLCredito" xmlns:tns="http://enterprise.netbeans.org/bpel/WSCreditoWrapper" partnerLinkType="tns:WS_CreditoLinkType" partnerRole="WS_CreditoRole"/>
+        <partnerLink name="PLEnvios" xmlns:tns="http://enterprise.netbeans.org/bpel/WS_EnviosWrapper" partnerLinkType="tns:WS_EnviosLinkType" partnerRole="WS_EnviosRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="SolicitudEnvioOut" xmlns:tns="http://wsenvios/" messageType="tns:solicitudEnvioResponse"/>
+        <variable name="SolicitudEnvioIn" xmlns:tns="http://wsenvios/" messageType="tns:solicitudEnvio"/>
+        <variable name="ClteDelPedidoOut" xmlns:tns="http://wspedido/" messageType="tns:clteDelPedidoResponse"/>
+        <variable name="ClteDelPedidoIn" xmlns:tns="http://wspedido/" messageType="tns:clteDelPedido"/>
+        <variable name="RestitucionPedidoOut" xmlns:tns="http://wspedido/" messageType="tns:restitucionPedidoResponse"/>
+        <variable name="RestitucionPedidoIn" xmlns:tns="http://wspedido/" messageType="tns:restitucionPedido"/>
+        <variable name="AutorizaOut" xmlns:tns="http://wscredito/" messageType="tns:autorizaResponse"/>
+        <variable name="AutorizaIn" xmlns:tns="http://wscredito/" messageType="tns:autoriza"/>
+        <variable name="MontoPedidoOut" xmlns:tns="http://wspedido/" messageType="tns:montoPedidoResponse"/>
+        <variable name="MontoPedidoIn" xmlns:tns="http://wspedido/" messageType="tns:montoPedido"/>
+        <variable name="Fault1FaultVar" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" messageType="tns:WS_SolicitaOperationFault"/>
+        <variable name="WS_SolicitaOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" messageType="tns:WS_SolicitaOperationResponse"/>
+        <variable name="AltaPedidoOut" xmlns:tns="http://wspedido/" messageType="tns:altaPedidoResponse"/>
+        <variable name="AltaPedidoIn" xmlns:tns="http://wspedido/" messageType="tns:altaPedido">
+            <sxed:editor>
+                <sxed:predicate path="$AltaPedidoIn.parameters/lista_it[$ForEach1Counter]" source="to"/>
+            </sxed:editor>
+        </variable>
+        <variable name="WS_SolicitaOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" messageType="tns:WS_SolicitaOperationRequest">
+            <sxed:editor>
+                <sxed:predicate path="$WS_SolicitaOperationIn.datosEntrada/ns0:lista_items[$ForEach1Counter]" source="from"/>
+            </sxed:editor>
+        </variable>
+    </variables>
+    <sequence>
+        <receive name="Receive1" createInstance="yes" partnerLink="PLSolicita" operation="WS_SolicitaOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" portType="tns:WS_SolicitaPortType" variable="WS_SolicitaOperationIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$WS_SolicitaOperationIn.datosEntrada/ns0:id_clte</from>
+                <to>$AltaPedidoIn.parameters/id_clte</to>
+            </copy>
+        </assign>
+        <forEach name="ForEach1" parallel="no" counterName="ForEach1Counter">
+            <startCounterValue>1</startCounterValue>
+            <finalCounterValue>count($WS_SolicitaOperationIn.datosEntrada/ns0:lista_items/ns0:id_prod)</finalCounterValue>
+            <scope name="Scope1">
+                <assign name="Assign2">
+                    <copy>
+                        <from>$WS_SolicitaOperationIn.datosEntrada/ns0:lista_items[$ForEach1Counter]/ns0:cantidad
+                            <sxed:editor>
+                                <sxed:predicate path="$WS_SolicitaOperationIn.datosEntrada/ns0:lista_items[$ForEach1Counter]" source="from"/>
+                            </sxed:editor>
+                        </from>
+                        <to>$AltaPedidoIn.parameters/lista_it[$ForEach1Counter]/cantidad
+                            <sxed:editor>
+                                <sxed:predicate path="$AltaPedidoIn.parameters/lista_it[$ForEach1Counter]" source="to"/>
+                            </sxed:editor>
+                        </to>
+                    </copy>
+                    <copy>
+                        <from>$WS_SolicitaOperationIn.datosEntrada/ns0:lista_items[$ForEach1Counter]/ns0:id_prod
+                            <sxed:editor>
+                                <sxed:predicate path="$WS_SolicitaOperationIn.datosEntrada/ns0:lista_items[$ForEach1Counter]" source="from"/>
+                            </sxed:editor>
+                        </from>
+                        <to>$AltaPedidoIn.parameters/lista_it[$ForEach1Counter]/id_prod
+                            <sxed:editor>
+                                <sxed:predicate path="$AltaPedidoIn.parameters/lista_it[$ForEach1Counter]" source="to"/>
+                            </sxed:editor>
+                        </to>
+                    </copy>
+                </assign>
+            </scope>
+        </forEach>
+        <invoke name="Invoke1" partnerLink="PLPedidos" operation="altaPedido" xmlns:tns="http://wspedido/" portType="tns:WSPedido" inputVariable="AltaPedidoIn" outputVariable="AltaPedidoOut"/>
+        <if name="If1">
+            <condition>$AltaPedidoOut.parameters/return = 0</condition>
+            <sequence name="Sequence1">
+                <assign name="Assign3">
+                    <copy>
+                        <from>'No hubo existencias del producto'</from>
+                        <to>$Fault1FaultVar.datosFault/ns0:message</to>
+                    </copy>
+                </assign>
+                <reply name="Reply2" partnerLink="PLSolicita" operation="WS_SolicitaOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" portType="tns:WS_SolicitaPortType" faultName="tns:fault1" variable="Fault1FaultVar"/>
+                <exit name="Exit1"/>
+            </sequence>
+        </if>
+        <assign name="Assign4">
+            <copy>
+                <from>$AltaPedidoOut.parameters/return</from>
+                <to>$MontoPedidoIn.parameters/num_pedido</to>
+            </copy>
+        </assign>
+        <invoke name="Invoke2" partnerLink="PLPedidos" operation="montoPedido" xmlns:tns="http://wspedido/" portType="tns:WSPedido" inputVariable="MontoPedidoIn" outputVariable="MontoPedidoOut"/>
+        <assign name="Assign5">
+            <copy>
+                <from>$MontoPedidoOut.parameters/return</from>
+                <to>$AutorizaIn.parameters/monto</to>
+            </copy>
+            <copy>
+                <from>$WS_SolicitaOperationIn.datosEntrada/ns0:id_clte</from>
+                <to>$AutorizaIn.parameters/id_clte</to>
+            </copy>
+        </assign>
+        <scope name="Scope2">
+            <faultHandlers>
+                <catchAll>
+                    <sequence name="Sequence2">
+                        <assign name="Assign6">
+                            <copy>
+                                <from>$AltaPedidoOut.parameters/return</from>
+                                <to>$RestitucionPedidoIn.parameters/idPedido</to>
+                            </copy>
+                            <copy>
+                                <from>'No tienes credito autorizado'</from>
+                                <to>$Fault1FaultVar.datosFault/ns0:message</to>
+                            </copy>
+                        </assign>
+                        <invoke name="Invoke4" partnerLink="PLPedidos" operation="restitucionPedido" xmlns:tns="http://wspedido/" portType="tns:WSPedido" inputVariable="RestitucionPedidoIn" outputVariable="RestitucionPedidoOut"/>
+                        <reply name="Reply3" partnerLink="PLSolicita" operation="WS_SolicitaOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" portType="tns:WS_SolicitaPortType" faultName="tns:fault1" variable="Fault1FaultVar"/>
+                    </sequence>
+                </catchAll>
+            </faultHandlers>
+            <invoke name="Invoke3" partnerLink="PLCredito" operation="autoriza" xmlns:tns="http://wscredito/" portType="tns:WS_Credito" inputVariable="AutorizaIn" outputVariable="AutorizaOut"/>
+        </scope>
+        <assign name="Assign7">
+            <copy>
+                <from>$AltaPedidoOut.parameters/return</from>
+                <to>$ClteDelPedidoIn.parameters/num_pedido</to>
+            </copy>
+        </assign>
+        <invoke name="Invoke5" partnerLink="PLPedidos" operation="clteDelPedido" xmlns:tns="http://wspedido/" portType="tns:WSPedido" inputVariable="ClteDelPedidoIn" outputVariable="ClteDelPedidoOut"/>
+        <assign name="Assign8">
+            <copy>
+                <from>1</from>
+                <to>$SolicitudEnvioIn.parameters/id_Tda</to>
+            </copy>
+            <copy>
+                <from>$AltaPedidoOut.parameters/return</from>
+                <to>$SolicitudEnvioIn.parameters/id_pedido</to>
+            </copy>
+            <copy>
+                <from>$ClteDelPedidoOut.parameters/return/name</from>
+                <to>$SolicitudEnvioIn.parameters/name</to>
+            </copy>
+            <copy>
+                <from>$ClteDelPedidoOut.parameters/return/email</from>
+                <to>$SolicitudEnvioIn.parameters/email</to>
+            </copy>
+            <copy>
+                <from>$ClteDelPedidoOut.parameters/return/phone</from>
+                <to>$SolicitudEnvioIn.parameters/phone</to>
+            </copy>
+            <copy>
+                <from>$ClteDelPedidoOut.parameters/return/address</from>
+                <to>$SolicitudEnvioIn.parameters/address</to>
+            </copy>
+            <copy>
+                <from>$ClteDelPedidoOut.parameters/return/cityRegion</from>
+                <to>$SolicitudEnvioIn.parameters/city_region</to>
+            </copy>
+        </assign>
+        <invoke name="Invoke6" partnerLink="PLEnvios" operation="solicitudEnvio" xmlns:tns="http://wsenvios/" portType="tns:WS_Envios" inputVariable="SolicitudEnvioIn" outputVariable="SolicitudEnvioOut"/>
+        <if name="If2">
+            <condition>$SolicitudEnvioOut.parameters/return and true()</condition>
+            <assign name="Assign9">
+                <copy>
+                    <from>$AltaPedidoOut.parameters/return</from>
+                    <to>$WS_SolicitaOperationOut.datosRespuesta/ns0:respuesta</to>
+                </copy>
+            </assign>
+            <else>
+                <sequence name="Sequence3">
+                    <assign name="Assign10">
+                        <copy>
+                            <from>'Hubo un error en el envio'</from>
+                            <to>$Fault1FaultVar.datosFault/ns0:message</to>
+                        </copy>
+                    </assign>
+                    <reply name="Reply4" partnerLink="PLSolicita" operation="WS_SolicitaOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" portType="tns:WS_SolicitaPortType" faultName="tns:fault1" variable="Fault1FaultVar"/>
+                    <exit name="Exit2"/>
+                </sequence>
+            </else>
+        </if>
+        <reply name="Reply1" partnerLink="PLSolicita" operation="WS_SolicitaOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/BPELProyecto/src/WS_Solicita" portType="tns:WS_SolicitaPortType" variable="WS_SolicitaOperationOut"/>
+    </sequence>
+</process>
