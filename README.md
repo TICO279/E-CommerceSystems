@@ -70,6 +70,7 @@ The repository contains the following key directories:
    Deploy the BPEL processes to **OpenESB Standalone** with the following command or directly using IDE:
    ```bash
    glassfish/bin/asadmin deploy BPEL_Proyecto.zip
+   ```
    Deploy the **CA process** that incorporates the BPEL and test it out before moving to POJO testing.
 
 5. **Run the System**:
