@@ -10,7 +10,7 @@ This project is an **e-commerce system** designed for selling and distributing b
 - **Inventory Management**: Tracks stock levels and prevents out-of-stock sales.
 - **Shipping Integration**: Handles delivery logistics and status tracking.
 - **Scalability & Stress Testing**: Includes **individual and system-wide stress tests** to validate performance.
-- **BPEL Orchestration**: Integrates the business logic across multiple services using **OpenESB**.
+- **Business Orchestration**: Integrates the business logic across multiple services using **OpenESB**.
 
 ## Architecture Overview
 
@@ -20,6 +20,7 @@ The system consists of **three core Web Services (WS)** and an **orchestration l
 2. **WS_Crédito (Credit Service)**: Processes customer payments, including credit validation.
 3. **WS_Envios (Shipping Service)**: Manages delivery logistics and tracking.
 4. **BPEL Orchestration (Business Logic)**: Integrates the services into a coordinated workflow using **OpenESB**.
+5. **CA Orchestration (Single application integration)**: Integrates all the services using **OpenESB**.
 
 Each service is independent and connects to its own **database**, ensuring modularity and scalability.
 
@@ -27,7 +28,7 @@ Each service is independent and connects to its own **database**, ensuring modul
 
 The repository contains the following key directories:
 
-- **`BusinessLogic/`** → Contains the **BPEL processes** orchestrating the services.
+- **`BusinessLogic/`** → Contains the **BPEL and CA processes** orchestrating the services.
 - **`Estresamiento/`** → Includes system-wide **stress testing** modules.
 - **`EstresamientoIndividual/`** → Provides **individual stress testing** for specific services.
 - **`PojosServiciosDeApoyo/`** → Contains **POJO-based test clients** for direct service interactions.
